@@ -1,0 +1,195 @@
+#N canvas 19 19 688 820 10;
+#X obj 438 194 vid01;
+#X obj 166 259 hsl 128 15 0 1 0 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 5576 1;
+#X obj 150 131 hsl 128 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 2100 1;
+#X obj 150 149 hsl 128 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 2700 1;
+#X obj 150 167 hsl 128 15 -6.9 6.9 0 0 empty empty empty -2 -6 0 10
+-262144 -1 -1 3100 1;
+#X obj -36 876 dac~;
+#X obj 27 166 moses 0;
+#X obj 70 197 exp 2;
+#X obj 28 188 abs;
+#X obj 26 212 exp 2;
+#X obj 14 236 * -1;
+#X msg 167 41 4.78749;
+#X msg 82 43 120;
+#X obj 115 18 loadbang;
+#X obj 272 190 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 1
+1;
+#X obj 154 191 sampgran;
+#X obj 119 302 seq16step;
+#X obj 292 286 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 1
+1;
+#X obj 22 308 moses 1;
+#X text 120 128 spd;
+#X text 115 145 trig;
+#X text 120 163 bpm;
+#X obj 393 328 bng 15 250 50 0 empty empty empty 0 -6 0 10 -262144
+-1 -1;
+#X text 324 301 when you open the Gem Window;
+#X text 328 314 then click this to fix it;
+#X text 305 227 click the bang to load a vid;
+#X text 299 241 click the toggle to open GEM win;
+#X text 157 114 granulizer controls;
+#X obj -9 81 bng 15 250 50 0 empty empty empty 0 -6 0 10 -262144 -1
+-1;
+#X text 109 204 volume;
+#N canvas 973 19 448 843 tutorial 0;
+#X msg 46 3 to start you must load the files. click the bang on the
+vid01 patch and load either the .mov or .avi in the folder to get started-
+then open the window by clicking the toggle. on the sampgran patch
+click the o and load in the beat.wav file. then finally click the o
+on the sequencer and load in the sequencing.sequence file. at this
+point you should be able to start playing with the sliders up top and
+watching how they control the lookup index (represented by the slider
+underneath the granulizer: it represents the audio/video file from
+beginning to end). the sliders are scaled a bit so you can see the
+full range of control: spd controls the initial playback speed- trigger
+is a ms time between the granulizer triggering- and bpm is the final
+scaled playback speed. to pitch shift- set a high spd and a low trig-
+then play with the bpm slider. note that the final playback speed (bpm)
+can play backwards with negative values. to be more precise you can
+click on the number boxes in the granulizer and enter the numbers by
+hand- and hit enter. the hradio on the granulizer adjusts the number
+of bars in the sample (ie double/half-time if the sample is playing
+too fast/slow at a standard BPM). the sliders in the granulizer control
+the start/end points of the lookup: if you set the bottom slider to
+halfway- the audio and video samples will only play through the first
+half of the file. after you play around for a little bit- turn your
+attention to the sequencer: you should now see a small sequence of
+16 bars- with an 8 in the first row and 8 6 4 2 in the second row.
+the granulizer is set so you can sequence out the 8 steps in the beat
+by sending it values from 0-7: to get around the fact that 0 is a null
+value in the sequencer- any patches set to sequence will wrap their
+input values: so 7.99 rolls over to 0 instead of 8- so 9 would be 1-
+10 would be 2- etc. in this setup a [moses] throws out all the 0's
+in the sequence (otherwise every 0 would trigger the beginning of the
+sample). the long hradio on the sequencer controls which steps you
+are editing- as shown by the bottom left number boxes: you edit the
+sequence in chunks of 16 steps at a time- up to a sequence of 256 steps.
+the small hradio to the right of that is currently unused: that will
+be set to switch between 4 different sequence banks. the number to
+the left of the o button is how many steps are in the sequence total.
+o and s open and save sequences: sequences are just arrays so the filetype
+is negligent (in this case i named it with .sequence so it was obvious).
+the number next to the s button is just a counter to show you what
+step you're on- and next to that is the BPM playback of the sequencer.
+you'll notice that when the sequencer is playing \, no matter what
+the granulizer settings are at it WILL adhere to the sequencing- it's
+a whole lot of fun to set up a simple sequence and then glitch it to
+all hell but have it still adhere to the sequence you give it! the
+concept behind this is really simple and amazed me how easily it worked.
+basically a sawtooth wave of value 0-1 is scaled to the number of samples
+in the soundfile \, and then the number of frames in the video. all
+that's really happening is this sawtooth is being manipulated to move
+the lookup around however you want it. ultimately you could control
+ANYTHING like this if you scale it to the correct values. i hope you
+guys have some fun with this - i was going to do this for the same
+patch that's just a looping sampler \, but it acts the same as this
+(only this one GRANULIZES too!). now i just need to figure out how
+to further control and effect it \, you might notice that at low trigger
+values when you change the spd \, effectively pitch-shifting the playback
+\, there's no real change in the video playback. one thing at a time
+i guess! \; you can reach me at iannault@hotmail.com with any questions
+or comments \, feel free to use and distribute all the included patches
+\, mod them \, do whatever.;
+#X restore 423 375 pd tutorial;
+#X text 140 370 # of steps in sequence;
+#X text 173 362 *drag to change;
+#X text 104 284 turn the sequencer on or off->;
+#X text 288 183 <-turn the granulizer;
+#X text 296 196 on or off;
+#X text 416 212 ->;
+#X msg 122 39 20;
+#X text 101 389 quick start:;
+#X text 328 276 *if you get the error*;
+#X msg 223 64 \; pd dsp 1;
+#X text 337 290 GL: invalid enumerant;
+#X obj 12 453 freeverb~;
+#X obj 832 439 *~;
+#X floatatom 832 354 0 0 0 0 - - -;
+#X floatatom 727 383 0 0 0 0 - - -;
+#X obj 742 459 +~;
+#X floatatom 854 409 0 0 0 0 - - -;
+#X text 739 346 carrier;
+#X text 738 364 frequency;
+#X text 817 330 frequency;
+#X text 818 313 modulation;
+#X obj 741 503 osc~;
+#X text 897 401 modulation;
+#X obj 832 379 osc~;
+#X obj 686 585 output~;
+#X text 810 557 <-- Hit "dsp" and slide up volume to listen;
+#X obj 730 191 dumpOSC 12000;
+#X obj 1177 124 import oscx;
+#X obj 730 214 OSCroute /wek;
+#X obj 730 236 OSCroute /outputs;
+#X obj 733 259 unpack f f f;
+#X obj 734 280 * 500;
+#X obj 781 299 * 500;
+#X obj 932 296 * 500;
+#X text 717 92 Wekinator controlling FM synthesis Adapated from FM
+synthesis PD example patch Receives 3 continuous outputs from Wekinator:
+1) Carrier freq 2) Modulation freq 3) Modulation index. Each of these
+can be between 0 and 1 (or other \, but they are scaled to be reasonable.)
+;
+#X text 771 437 comment;
+#X text 905 415 index;
+#X text 819 190 Reciving on port 12000;
+#X obj 183 434 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 228 420 5 0 0 0 - - -, f 5;
+#X floatatom 271 28 5 0 0 0 - - numBeats, f 5;
+#X floatatom 342 29 5 0 0 0 - - speed, f 5;
+#X connect 2 0 15 0;
+#X connect 3 0 15 1;
+#X connect 4 0 6 0;
+#X connect 6 0 8 0;
+#X connect 6 1 7 0;
+#X connect 7 0 15 2;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 15 2;
+#X connect 11 0 4 0;
+#X connect 12 0 2 0;
+#X connect 12 0 15 0;
+#X connect 13 0 12 0;
+#X connect 13 0 37 0;
+#X connect 13 0 11 0;
+#X connect 13 0 40 0;
+#X connect 14 0 15 4;
+#X connect 15 0 42 0;
+#X connect 15 1 0 0;
+#X connect 15 1 1 0;
+#X connect 16 0 18 0;
+#X connect 16 0 70 0;
+#X connect 17 0 16 3;
+#X connect 18 1 15 3;
+#X connect 22 0 0 1;
+#X connect 28 0 12 0;
+#X connect 28 0 37 0;
+#X connect 28 0 11 0;
+#X connect 37 0 3 0;
+#X connect 42 0 55 0;
+#X connect 42 1 55 1;
+#X connect 43 0 46 1;
+#X connect 44 0 54 0;
+#X connect 45 0 46 0;
+#X connect 46 0 52 0;
+#X connect 47 0 43 1;
+#X connect 52 0 55 0;
+#X connect 52 0 55 1;
+#X connect 54 0 43 0;
+#X connect 57 0 59 0;
+#X connect 59 0 60 0;
+#X connect 60 0 61 0;
+#X connect 61 0 62 0;
+#X connect 61 1 63 0;
+#X connect 61 2 64 0;
+#X connect 62 0 45 0;
+#X connect 63 0 44 0;
+#X connect 64 0 47 0;
+#X coords 0 -1 1 1 400 430 1 100 100;
