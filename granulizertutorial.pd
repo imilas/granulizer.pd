@@ -1,13 +1,13 @@
-#N canvas 19 19 688 820 10;
+#N canvas 19 19 448 843 10;
 #X obj 438 194 vid01;
 #X obj 166 259 hsl 128 15 0 1 0 0 empty empty empty -2 -6 0 10 -262144
--1 -1 5576 1;
+-1 -1 0 1;
 #X obj 150 131 hsl 128 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
--1 -1 2100 1;
+-1 -1 7619 1;
 #X obj 150 149 hsl 128 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
--1 -1 2700 1;
+-1 -1 3324 1;
 #X obj 150 167 hsl 128 15 -6.9 6.9 0 0 empty empty empty -2 -6 0 10
--262144 -1 -1 3100 1;
+-262144 -1 -1 10756 1;
 #X obj -36 876 dac~;
 #X obj 27 166 moses 0;
 #X obj 70 197 exp 2;
@@ -17,11 +17,11 @@
 #X msg 167 41 4.78749;
 #X msg 82 43 120;
 #X obj 115 18 loadbang;
-#X obj 272 190 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 1
+#X obj 272 190 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 0
 1;
 #X obj 154 191 sampgran;
 #X obj 119 302 seq16step;
-#X obj 292 286 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 1
+#X obj 292 286 tgl 15 0 empty empty empty 0 -6 0 10 -262144 -1 -1 0
 1;
 #X obj 22 308 moses 1;
 #X text 120 128 spd;
@@ -124,7 +124,7 @@ or comments \, feel free to use and distribute all the included patches
 #X obj 686 585 output~;
 #X text 810 557 <-- Hit "dsp" and slide up volume to listen;
 #X obj 730 191 dumpOSC 12000;
-#X obj 1177 124 import oscx;
+#X obj 1048 185 import oscx;
 #X obj 730 214 OSCroute /wek;
 #X obj 730 236 OSCroute /outputs;
 #X obj 733 259 unpack f f f;
@@ -144,6 +144,29 @@ can be between 0 and 1 (or other \, but they are scaled to be reasonable.)
 #X floatatom 228 420 5 0 0 0 - - -, f 5;
 #X floatatom 271 28 5 0 0 0 - - numBeats, f 5;
 #X floatatom 342 29 5 0 0 0 - - speed, f 5;
+#X msg 89 526 roomsize \$1;
+#X msg 76 556 damping \$1;
+#X msg 76 578 width \$1;
+#X msg 70 606 wet \$1;
+#X msg 55 636 dry \$1;
+#X msg 76 666 freeze \$1;
+#X msg 76 688 bypass \$1;
+#X obj 163 535 hsl 30 15 0.02 2 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 165 558 hsl 30 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 160 578 hsl 30 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 159 598 hsl 30 15 0.014 1.4 1 0 empty empty empty -2 -6 0 10
+-262144 -1 -1 0 1;
+#X obj 154 621 hsl 30 15 0.02 2 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 151 642 hsl 30 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 154 666 hsl 30 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
+#X obj 155 690 hsl 30 15 5 999 1 0 empty empty empty -2 -6 0 10 -262144
+-1 -1 0 1;
 #X connect 2 0 15 0;
 #X connect 3 0 15 1;
 #X connect 4 0 6 0;
@@ -162,6 +185,7 @@ can be between 0 and 1 (or other \, but they are scaled to be reasonable.)
 #X connect 13 0 40 0;
 #X connect 14 0 15 4;
 #X connect 15 0 42 0;
+#X connect 15 0 42 1;
 #X connect 15 1 0 0;
 #X connect 15 1 1 0;
 #X connect 16 0 18 0;
@@ -192,4 +216,10 @@ can be between 0 and 1 (or other \, but they are scaled to be reasonable.)
 #X connect 62 0 45 0;
 #X connect 63 0 44 0;
 #X connect 64 0 47 0;
+#X connect 73 0 42 0;
+#X connect 76 0 42 0;
+#X connect 77 0 42 0;
+#X connect 80 0 73 0;
+#X connect 83 0 76 0;
+#X connect 84 0 77 0;
 #X coords 0 -1 1 1 400 430 1 100 100;
